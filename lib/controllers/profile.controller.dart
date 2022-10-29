@@ -58,5 +58,63 @@ class ProfileController extends GetxController {
         isFollowing = false;
       }
     });
+
+    _user.value = {
+      'followers': followers.toString(),
+      'following': following.toString(),
+      'isFollowing': isFollowing,
+      'likes': likes.toString(),
+      'profilePhoto': profilePhoto,
+      'name': name,
+      'thumbnails': thumbnails,
+    };
+    update();
+  }
+
+  followUser() async {
+    var doc = await firestore
+        .collection('users')
+        .doc(_uid.value)
+        .collection('followers')
+        .doc(authController.user.uid)
+        .get();
+
+    if(!doc.exists) {
+      await firestore
+          .collection('users')
+          .doc(_uid.value)
+          .collection('followers')
+          .doc(authController.user.uid)
+          .set({});
+      await firestore
+          .collection('users')
+          .doc(authController.user.uid)
+          .collection('followers')
+          .doc(_uid.value)
+          .set({});
+      _user.value.update(
+        'followers',
+        (value) => (int.parse(value) + 1).toString(),
+      );
+    } else {
+      await firestore
+          .collection('users')
+          .doc(_uid.value)
+          .collection('followers')
+          .doc(authController.user.uid)
+          .delete();
+      await firestore
+          .collection('users')
+          .doc(authController.user.uid)
+          .collection('followers')
+          .doc(_uid.value)
+          .delete();
+      _user.value.update(
+        'followers',
+            (value) => (int.parse(value) - 1).toString(),
+      );
+    }
+    _user.value.update('isFollowing', (value) => !value);
+    update();
   }
 }
