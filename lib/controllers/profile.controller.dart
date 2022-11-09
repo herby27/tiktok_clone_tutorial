@@ -26,10 +26,10 @@ class ProfileController extends GetxController {
     }
 
     DocumentSnapshot userDoc =
-      await firestore.collection('users').doc(_uid.value).get();
-    final userData = userDoc.data()! as dynamic;
-    String name = userData['name'];
-    String profilePhoto = userData['profilePhoto'];
+        await firestore.collection('users').doc(_uid.value).get();
+    final userData = userDoc.data() ?? {} as dynamic;
+    String name = userData['name'] ?? "";
+    String profilePhoto = userData['profilePhoto'] ?? "";
     int likes = 0;
     int followers = 0;
     int following = 0;
@@ -111,7 +111,7 @@ class ProfileController extends GetxController {
           .delete();
       _user.value.update(
         'followers',
-            (value) => (int.parse(value) - 1).toString(),
+        (value) => (int.parse(value) - 1).toString(),
       );
     }
     _user.value.update('isFollowing', (value) => !value);
