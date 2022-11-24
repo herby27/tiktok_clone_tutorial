@@ -24,7 +24,7 @@ class SignupScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'TikTok Clone',
+            'Self Thought',
             style: TextStyle(
               fontSize: 35.0,
               color: buttonColor,
