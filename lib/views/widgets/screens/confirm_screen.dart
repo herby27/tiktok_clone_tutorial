@@ -1,14 +1,15 @@
 import 'dart:io';
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone_tutorial/controllers/upload_video_controller.dart';
 import 'package:tiktok_clone_tutorial/views/widgets/text_input_field.dart';
-import 'package:video_player/video_player.dart';
 
 class ConfirmScreen extends StatefulWidget {
   final File videoFile;
   final String videoPath;
-  const ConfirmScreen({Key? key,
+  const ConfirmScreen({
+    Key? key,
     required this.videoFile,
     required this.videoPath,
   }) : super(key: key);
@@ -18,18 +19,19 @@ class ConfirmScreen extends StatefulWidget {
 }
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
-  late VideoPlayerController controller;
+  late CachedVideoPlayerController controller;
   TextEditingController _songController = TextEditingController();
   TextEditingController _captionController = TextEditingController();
 
-  UploadVideoController uploadVideoController = Get.put(UploadVideoController());
+  UploadVideoController uploadVideoController =
+      Get.put(UploadVideoController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     setState(() {
-      controller = VideoPlayerController.file(widget.videoFile);
+      controller = CachedVideoPlayerController.file(widget.videoFile);
     });
     controller.initialize();
     controller.play();
@@ -54,10 +56,12 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/1.5,
-              child: VideoPlayer(controller),
+              height: MediaQuery.of(context).size.height / 1.5,
+              child: CachedVideoPlayer(controller),
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
@@ -65,26 +69,33 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    width: MediaQuery.of(context).size.width-20,
+                    width: MediaQuery.of(context).size.width - 20,
                     child: TextInputField(
                       controller: _songController,
                       labelText: 'Song Name',
                       icon: Icons.music_note,
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    width: MediaQuery.of(context).size.width-20,
+                    width: MediaQuery.of(context).size.width - 20,
                     child: TextInputField(
                       controller: _captionController,
                       labelText: 'Caption',
                       icon: Icons.closed_caption,
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   ElevatedButton(
-                      onPressed: () => uploadVideoController.uploadVideo(_songController.text, _captionController.text, widget.videoPath),
+                      onPressed: () => uploadVideoController.uploadVideo(
+                          _songController.text,
+                          _captionController.text,
+                          widget.videoPath),
                       child: const Text(
                         'Share!',
                         style: TextStyle(

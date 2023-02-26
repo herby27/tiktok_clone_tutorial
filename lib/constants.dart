@@ -12,7 +12,7 @@ List pages = [
   VideoScreen(),
   SearchScreen(),
   const AddVideoScreen(),
-  Text('Messages Screen'),
+  const Center(child: Text('Messages Screen')),
   ProfileScreen(uid: authController.user.uid),
 ];
 
@@ -27,5 +27,4 @@ var firebaseStorage = FirebaseStorage.instance;
 var firestore = FirebaseFirestore.instance;
 
 //CONTROLLER
-var  authController = AuthController.instance;
-
+var authController = AuthController.instance;

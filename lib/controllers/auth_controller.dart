@@ -62,17 +62,16 @@ class AuthController extends GetxController {
   }
 
   //registering the user
-  void registerUser(String username, String email, String password, File? image) async {
+  void registerUser(
+      String username, String email, String password, File? image) async {
     try {
-      if(username.isNotEmpty &&
+      if (username.isNotEmpty &&
           email.isNotEmpty &&
           password.isNotEmpty &&
-          image!=null) {
+          image != null) {
         //save out user to our auth and firebase firestore
         UserCredential cred = await firebaseAuth.createUserWithEmailAndPassword(
-            email: email,
-            password: password
-            );
+            email: email, password: password);
         String downloadUrl = "";
         try {
           downloadUrl = await uploadToStorage(image);
@@ -81,11 +80,11 @@ class AuthController extends GetxController {
           print(e);
         }
         model.User user = model.User(
-          name: username,
-          email: email,
-          uid: cred.user!.uid,
-          profilePhoto: downloadUrl,
-        );
+            name: username,
+            email: email,
+            uid: cred.user!.uid,
+            profilePhoto: downloadUrl,
+            role: 0);
         cred.user!.uid.printInfo();
 
         // Updated This are and directly used the firebase firestore instance
@@ -121,7 +120,7 @@ class AuthController extends GetxController {
           'Please enter all the fields',
         );
       }
-    } catch(e) {
+    } catch (e) {
       Get.snackbar(
         'Error Logging in',
         e.toString(),
