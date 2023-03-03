@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tiktok_clone_tutorial/app_pref.dart';
 import 'package:tiktok_clone_tutorial/constants.dart';
 import 'package:tiktok_clone_tutorial/models/user.dart' as model;
 import 'package:tiktok_clone_tutorial/views/widgets/screens/auth/login_screen.dart';
@@ -84,8 +85,9 @@ class AuthController extends GetxController {
             email: email,
             uid: cred.user!.uid,
             profilePhoto: downloadUrl,
-            role: 0);
+            role: 1);
         cred.user!.uid.printInfo();
+        setPrefValue("Role", "1");
 
         // Updated This are and directly used the firebase firestore instance
         await FirebaseFirestore.instance
@@ -107,11 +109,22 @@ class AuthController extends GetxController {
     }
   }
 
+  getUserData() async {
+    DocumentSnapshot userDoc = await firestore
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    final userData = userDoc.data() ?? {} as dynamic;
+    int role1 = userData['role'] ?? 1;
+    await setPrefValue("Role", role1.toString());
+  }
+
   void loginUser(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password);
+        await getUserData();
         print('log success');
         _setInitialScreen();
       } else {

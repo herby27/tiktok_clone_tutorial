@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:tiktok_clone_tutorial/app_pref.dart';
 import 'package:tiktok_clone_tutorial/models/video.dart';
 
 import '../constants.dart';
@@ -33,6 +34,7 @@ class VideoController extends GetxController {
         .get();
     final userData = userDoc.data() ?? {} as dynamic;
     int role1 = userData['role'] ?? 1;
+    await setPrefValue("Role", role1.toString());
     role.value = role1;
     update();
   }

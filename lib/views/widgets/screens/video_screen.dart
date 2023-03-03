@@ -151,6 +151,22 @@ class _VideoScreenState extends State<VideoScreen> {
                             ),
                           ),
                           Container(
+                            transform: Matrix4.translationValues(-76, 0, 0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  onTap: () =>
+                                      videoController.deleteVideo(data.id),
+                                  child: const Icon(Icons.delete_forever,
+                                      size: 40, color: Colors.white),
+                                ),
+                                const SizedBox(height: 7),
+                              ],
+                            ),
+                          ),
+                          Container(
                             width: 100,
                             margin: EdgeInsets.only(top: size.height / 5),
                             child: Column(
@@ -175,23 +191,6 @@ class _VideoScreenState extends State<VideoScreen> {
                                     ),
                                   ],
                                 ),
-                                Obx(() => videoController.role.value == 0
-                                    ? Column(
-                                        children: [
-                                          InkWell(
-                                            onTap: () => videoController
-                                                .deleteVideo(data.id),
-                                            child: const Icon(
-                                                Icons.delete_forever,
-                                                size: 40,
-                                                color: Colors.red),
-                                          ),
-                                          const SizedBox(height: 7),
-                                        ],
-                                      )
-                                    : Container(
-                                        height: 0,
-                                      )),
                                 Column(
                                   children: [
                                     InkWell(

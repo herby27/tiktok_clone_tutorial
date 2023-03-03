@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone_tutorial/app_pref.dart';
 import 'package:tiktok_clone_tutorial/constants.dart';
 
 import '../custom_icon.dart';
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (idx){
+        onTap: (idx) {
           setState(() {
             pageIdx = idx;
           });
@@ -27,30 +28,32 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.white,
         currentIndex: pageIdx,
-        items: const [
-          BottomNavigationBarItem(
-          icon: Icon(Icons.home, size: 30),
-      label: 'Home',
+        items: [
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.home, size: 30),
+            label: 'Home',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.search, size: 30),
             label: 'Search',
           ),
-          BottomNavigationBarItem(
-            icon: CustomIcon(),
-            label: '',
-          ),
-          BottomNavigationBarItem(
+          if (getPrefValue("Role") == "0")
+            const BottomNavigationBarItem(
+              icon: CustomIcon(),
+              label: '',
+            ),
+          const BottomNavigationBarItem(
             icon: Icon(Icons.message, size: 30),
             label: 'Messages',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person, size: 30),
             label: 'Profile',
           ),
         ],
       ),
-      body: pages[pageIdx],
+      body:
+          getPrefValue("Role") == "0" ? pages[pageIdx] : pagesNonAdmin[pageIdx],
     );
   }
 }

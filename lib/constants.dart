@@ -15,6 +15,13 @@ List pages = [
   const Center(child: Text('Messages Screen')),
   ProfileScreen(uid: authController.user.uid),
 ];
+List pagesNonAdmin = [
+  VideoScreen(),
+  SearchScreen(),
+  // const AddVideoScreen(),
+  const Center(child: Text('Messages Screen')),
+  ProfileScreen(uid: authController.user.uid),
+];
 
 //COLORS
 const backgroundColor = Colors.black;
