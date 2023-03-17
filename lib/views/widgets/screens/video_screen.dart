@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone_tutorial/app_pref.dart';
 import '../../../controllers/video_controller.dart';
 import '../circle_animation.dart';
 import '../video_player_item.dart';
@@ -151,22 +152,6 @@ class _VideoScreenState extends State<VideoScreen> {
                             ),
                           ),
                           Container(
-                            transform: Matrix4.translationValues(-76, 0, 0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                  onTap: () =>
-                                      videoController.deleteVideo(data.id),
-                                  child: const Icon(Icons.delete_forever,
-                                      size: 40, color: Colors.white),
-                                ),
-                                const SizedBox(height: 7),
-                              ],
-                            ),
-                          ),
-                          Container(
                             width: 100,
                             margin: EdgeInsets.only(top: size.height / 5),
                             child: Column(
@@ -175,6 +160,32 @@ class _VideoScreenState extends State<VideoScreen> {
                                 buildProfile(data.profilePhoto),
                                 Column(
                                   children: [
+                                    if (getPrefValue("Role") == "0")
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () => videoController
+                                                .deleteVideo(data.id, index),
+                                            child: const Icon(
+                                                Icons.delete_forever,
+                                                size: 40,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(height: 7),
+                                          const Text(
+                                            "Delete",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 7),
+                                        ],
+                                      ),
                                     InkWell(
                                       onTap: () =>
                                           videoController.likeVideo(data.id),

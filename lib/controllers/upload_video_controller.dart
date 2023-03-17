@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_clone_tutorial/models/video.dart';
 import 'package:video_compress/video_compress.dart';
@@ -7,7 +8,6 @@ import 'package:video_compress/video_compress.dart';
 import '../constants.dart';
 
 class UploadVideoController extends GetxController {
-
   _compressVideo(String videoPath) async {
     final compressedVideo = await VideoCompress.compressVideo(
       videoPath,
@@ -42,8 +42,17 @@ class UploadVideoController extends GetxController {
 
   uploadVideo(String songName, String caption, String videoPath) async {
     try {
+      Get.dialog(
+          Container(
+            color: Colors.grey.withOpacity(0.2),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+          useSafeArea: false);
       String uid = firebaseAuth.currentUser!.uid;
-      DocumentSnapshot userDoc = await firestore.collection('users').doc(uid).get();
+      DocumentSnapshot userDoc =
+          await firestore.collection('users').doc(uid).get();
       // get id
       var allDocs = await firestore.collection('videos').get();
       int len = allDocs.docs.length;
@@ -65,12 +74,15 @@ class UploadVideoController extends GetxController {
       );
 
       await firestore.collection('videos').doc('Video $len').set(
-        video.toJson(),
-      );
+            video.toJson(),
+          );
       Get.back();
-    } catch(e) {
-      Get.snackbar('Error Uploading Video',
-          e.toString(),
+      Get.back();
+    } catch (e) {
+      Get.back();
+      Get.snackbar(
+        'Error Uploading Video',
+        e.toString(),
       );
     }
   }

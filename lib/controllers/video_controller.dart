@@ -39,9 +39,12 @@ class VideoController extends GetxController {
     update();
   }
 
-  deleteVideo(String id) async {
+  deleteVideo(String id, int index) async {
     try {
       await firestore.collection('videos').doc(id).delete();
+
+      // _videoList.value.removeAt(index);
+      _videoList.refresh();
       Get.snackbar(
         'Deleted',
         'Video Deleted Successfully',
