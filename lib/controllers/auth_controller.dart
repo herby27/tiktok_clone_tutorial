@@ -101,10 +101,10 @@ class AuthController extends GetxController {
           'Please enter all the fields',
         );
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       Get.snackbar(
         'Error Creating Account',
-        e.toString(),
+        e.message.toString(),
       );
     }
   }
@@ -133,10 +133,10 @@ class AuthController extends GetxController {
           'Please enter all the fields',
         );
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       Get.snackbar(
-        'Error Logging in',
-        e.toString(),
+        'Error Creating Account',
+        e.message.toString(),
       );
     }
   }

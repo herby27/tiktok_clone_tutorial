@@ -15,11 +15,18 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
+    videoPlayerController = CachedVideoPlayerController.network(widget.videoUrl)
+      ..initialize().then((value) {
+        videoPlayerController.play();
+        videoPlayerController.setVolume(1);
+        videoPlayerController.setLooping(true);
+      });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    videoPlayerController.pause();
   }
 
   @override
@@ -31,12 +38,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    videoPlayerController = CachedVideoPlayerController.network(widget.videoUrl)
-      ..initialize().then((value) {
-        videoPlayerController.play();
-        videoPlayerController.setVolume(1);
-        videoPlayerController.setLooping(true);
-      });
+
     return GestureDetector(
       // onVerticalDragDown: (details) {
       //   videoPlayerController.pause();

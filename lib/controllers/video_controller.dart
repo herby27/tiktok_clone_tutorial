@@ -17,7 +17,14 @@ class VideoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // _videoList.bindStream(getVideos());
+    _videoList.bindStream(
+        firestore.collection('videos').snapshots().map((QuerySnapshot query) {
+      List<Video> retVal = [];
+      for (var element in query.docs) {
+        retVal.add(Video.fromSnap(element));
+      }
+      return retVal;
+    }));
   }
 
   getUserData() async {
@@ -32,30 +39,12 @@ class VideoController extends GetxController {
     update();
   }
 
-  updateVideos() {
-    _videoList.bindStream(getVideos());
-  }
-
-  Stream<List<Video>> getVideos() {
-    return firestore
-        .collection('videos')
-        .snapshots()
-        .map((QuerySnapshot query) {
-      List<Video> retVal = [];
-      for (var element in query.docs) {
-        retVal.add(Video.fromSnap(element));
-      }
-      return retVal;
-    });
-  }
-
   deleteVideo(String id, int index) async {
     try {
       await firestore.collection('videos').doc(id).delete();
 
-      _videoList.value.removeAt(index);
-      // _videoList.refresh();
-      Get.forceAppUpdate();
+      // _videoList.value.removeAt(index);
+      _videoList.refresh();
       Get.snackbar(
         'Deleted',
         'Video Deleted Successfully',
