@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone_tutorial/app_pref.dart';
 import 'package:tiktok_clone_tutorial/constants.dart';
+import 'package:tiktok_clone_tutorial/views/widgets/screens/add_video_screen.dart';
+import 'package:tiktok_clone_tutorial/views/widgets/screens/profile_screen.dart';
+import 'package:tiktok_clone_tutorial/views/widgets/screens/search_screen.dart';
+import 'package:tiktok_clone_tutorial/views/widgets/screens/video_screen.dart';
 
 import '../custom_icon.dart';
 
@@ -52,8 +56,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body:
-          getPrefValue("Role") == "0" ? pages[pageIdx] : pagesNonAdmin[pageIdx],
+      body: getPrefValue("Role") == "0"
+          ? [
+              const VideoScreen(),
+              SearchScreen(),
+              const AddVideoScreen(),
+              const Center(child: Text('Messages Screen')),
+              ProfileScreen(uid: authController.user.uid),
+            ][pageIdx]
+          : [
+              const VideoScreen(),
+              SearchScreen(),
+              // const AddVideoScreen(),
+              const Center(child: Text('Messages Screen')),
+              ProfileScreen(uid: authController.user.uid),
+            ][pageIdx],
     );
   }
 }

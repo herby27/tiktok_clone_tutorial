@@ -76,9 +76,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 width: 100,
                                 placeholder: (context, url) =>
                                     const CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Icon(
-                                  Icons.error,
-                                ),
+                                errorWidget: (context, error, stackTrace) {
+                                  // printError();
+                                  return Image.asset(
+                                    "assets/broken_image.jpg",
+                                    fit: BoxFit.fitHeight,
+                                    // width: 160.0,
+                                    height: 122.0,
+                                  );
+                                },
                               ),
                             ),
                           ],

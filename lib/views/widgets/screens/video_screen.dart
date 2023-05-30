@@ -38,8 +38,17 @@ class _VideoScreenState extends State<VideoScreen> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
-                child:
-                    Image(image: NetworkImage(profilePhoto), fit: BoxFit.cover),
+                child: Image(
+                    image: NetworkImage(profilePhoto),
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        "assets/broken_image.jpg",
+                        fit: BoxFit.fitHeight,
+                        // width: 160.0,
+                        height: 122.0,
+                      );
+                    },
+                    fit: BoxFit.cover),
               ),
             ),
           ),
@@ -68,6 +77,14 @@ class _VideoScreenState extends State<VideoScreen> {
               borderRadius: BorderRadius.circular(25),
               child: Image(
                 image: NetworkImage(profilePhoto),
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    "assets/broken_image.jpg",
+                    fit: BoxFit.fitHeight,
+                    // width: 160.0,
+                    height: 122.0,
+                  );
+                },
                 fit: BoxFit.cover,
               ),
             ),

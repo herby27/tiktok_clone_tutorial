@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone_tutorial/constants.dart';
 import 'package:tiktok_clone_tutorial/views/widgets/text_input_field.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'singup_screen.dart';
 
@@ -13,110 +17,134 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'SelfThought',
-              style: TextStyle(
-                fontSize: 35.0,
-                color: buttonColor,
-                fontWeight: FontWeight.w900,
+        body: Container(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'SelfThought',
+            style: TextStyle(
+              fontSize: 35.0,
+              color: buttonColor,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const Text(
+            'login',
+            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(
+            height: 25.0,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextInputField(
+              controller: _emailController,
+              labelText: 'Email',
+              icon: Icons.email,
+            ),
+          ),
+          const SizedBox(
+            height: 25.0,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextInputField(
+              controller: _passwordController,
+              labelText: 'Password',
+              icon: Icons.lock,
+              isObscure: true,
+            ),
+          ),
+          const SizedBox(
+            height: 30.0,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width - 40,
+            height: 50,
+            decoration: BoxDecoration(
+              color: buttonColor,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
               ),
             ),
-            const Text(
-              'login',
-              style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.w700
-              ),
-            ),
-            const SizedBox(
-              height: 25.0,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextInputField(
-                  controller: _emailController,
-                  labelText: 'Email',
-                  icon: Icons.email,
-              ),
-            ),
-            const SizedBox(
-              height: 25.0,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextInputField(
-                controller: _passwordController,
-                labelText: 'Password',
-                icon: Icons.lock,
-                isObscure: true,
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width-40,
-              height: 50,
-              decoration: BoxDecoration(
-                color: buttonColor,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5),
+            child: InkWell(
+              onTap: () => authController.loginUser(
+                  _emailController.text, _passwordController.text),
+              child: const Center(
+                child: Text(
+                  'Login',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
                 ),
               ),
-              child: InkWell(
-                onTap: () => authController.loginUser(
-                    _emailController.text,
-                    _passwordController.text
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Don\'t have an account? ',
+                style: TextStyle(
+                  fontSize: 20,
                 ),
-                child: const Center(
-                  child: Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w700
-                      ),
+              ),
+              InkWell(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SignupScreen(),
                   ),
                 ),
+                child: Text(
+                  'Register',
+                  style: TextStyle(fontSize: 20, color: buttonColor),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Don\'t have an account? ',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'OR',
+            style: TextStyle(fontSize: 20, color: buttonColor),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    authController.signInWithGoogle();
+                  },
+                  icon: const Icon(
+                    FontAwesome.google,
+                    size: 40,
+                  )),
+              if (Platform.isIOS) ...[
+                const SizedBox(
+                  width: 30,
                 ),
-                InkWell(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SignupScreen(),
-                    ),
-                  ),
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: buttonColor
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      )
-    );
+                IconButton(
+                    onPressed: () {
+                      authController.signInWithApple();
+                    },
+                    icon: const Icon(
+                      FontAwesome.apple,
+                      size: 40,
+                    )),
+              ]
+            ],
+          ),
+        ],
+      ),
+    ));
   }
 }

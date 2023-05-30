@@ -5,7 +5,6 @@ import 'package:tiktok_clone_tutorial/app_pref.dart';
 import 'package:tiktok_clone_tutorial/constants.dart';
 import 'package:tiktok_clone_tutorial/controllers/auth_controller.dart';
 import 'package:tiktok_clone_tutorial/views/widgets/screens/auth/login_screen.dart';
-import 'package:tiktok_clone_tutorial/views/widgets/screens/auth/singup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
