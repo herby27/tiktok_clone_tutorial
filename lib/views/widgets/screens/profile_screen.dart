@@ -42,12 +42,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // Icon(Icons.more_horiz),
                 PopupMenuButton(
                   itemBuilder: (ctx) => [
-                    // _buildPopupMenuItem('Search'),
-                    // _buildPopupMenuItem('Upload'),
-                    // _buildPopupMenuItem('Copy'),
-                    _buildPopupMenuItem('Delete Account', () {
-                      profileController.deleteProfile();
-                    }),
+                    // if (widget.uid == authController.user.uid)
+                    //   _buildPopupMenuItem('Delete Account', () {
+                    //     profileController.deleteProfile();
+                    //   }),
                   ],
                 )
               ],
@@ -146,8 +144,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 1,
                               height: 15,
                               margin: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                              ),
+                                  // horizontal: 15,
+                                  ),
                             ),
                             Column(
                               children: [
@@ -174,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 15,
                         ),
                         Container(
-                          width: 140,
+                          // width: 140,
                           height: 47,
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -182,25 +180,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           child: Center(
-                            child: InkWell(
-                              onTap: () {
-                                if (widget.uid == authController.user.uid) {
-                                  authController.signOut();
-                                } else {
-                                  controller.followUser();
-                                }
-                              },
-                              child: Text(
-                                widget.uid == authController.user.uid
-                                    ? 'Sign Out'
-                                    : controller.user['isFollowing']
-                                        ? 'Unfollow'
-                                        : 'Follow',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if (widget.uid == authController.user.uid) {
+                                      authController.signOut();
+                                    } else {
+                                      controller.followUser();
+                                    }
+                                  },
+                                  child: Text(
+                                    widget.uid == authController.user.uid
+                                        ? 'Sign Out'
+                                        : controller.user['isFollowing']
+                                            ? 'Unfollow'
+                                            : 'Follow',
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                const SizedBox(
+                                  width: 25,
+                                ),
+                                if (widget.uid == authController.user.uid)
+                                  InkWell(
+                                    onTap: () {
+                                      profileController.deleteProfile();
+                                    },
+                                    child: const Text(
+                                      'Delete Account',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                         ),
