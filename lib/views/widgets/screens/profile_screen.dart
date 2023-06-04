@@ -117,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 1,
                               height: 15,
                               margin: const EdgeInsets.symmetric(
-                                horizontal: 15,
+                                horizontal: 18,
                               ),
                             ),
                             Column(
@@ -144,8 +144,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 1,
                               height: 15,
                               margin: const EdgeInsets.symmetric(
-                                  // horizontal: 15,
-                                  ),
+                                horizontal: 20,
+                              ),
                             ),
                             Column(
                               children: [
