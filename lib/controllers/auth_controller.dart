@@ -198,7 +198,7 @@ class AuthController extends GetxController {
       Get.back();
       Get.snackbar(
         'Error In Social Login',
-        "Unexpected Error Occured..",
+        e.toString(),
       );
     }
   }
@@ -305,7 +305,7 @@ class AuthController extends GetxController {
       Get.back();
       Get.snackbar(
         'Error In Social Login',
-        "Unexpected Error Occured..",
+        e.toString(),
       );
     }
   }
