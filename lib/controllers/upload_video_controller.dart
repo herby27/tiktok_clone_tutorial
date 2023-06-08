@@ -12,6 +12,7 @@ class UploadVideoController extends GetxController {
     final compressedVideo = await VideoCompress.compressVideo(
       videoPath,
       quality: VideoQuality.MediumQuality,
+      includeAudio: true,
     );
     return compressedVideo!.file;
   }
