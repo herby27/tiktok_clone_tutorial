@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.search, size: 30),
             label: 'Search',
           ),
-          if (getPrefValue("Role") == "1") // 0->1 for checking upload video feature By Bright
+          if (getPrefValue("Role") == "0") // 0->1 for checking upload video feature By Bright
             const BottomNavigationBarItem(
               icon: CustomIcon(),
               label: '',
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: getPrefValue("Role") == "1" // 0->1 for checking upload video feature By Bright
+      body: getPrefValue("Role") == "0" // 0->1 for checking upload video feature By Bright
           ? [
               const VideoScreen(),
               SearchScreen(),
