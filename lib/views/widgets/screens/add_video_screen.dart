@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:images_picker/images_picker.dart';
 
 import '../../../constants.dart';
 import 'confirm_screen.dart';
@@ -10,16 +13,61 @@ class AddVideoScreen extends StatelessWidget {
   const AddVideoScreen({Key? key}) : super(key: key);
 
   pickVideo(ImageSource src, BuildContext context) async {
-    final video = await ImagePicker().pickVideo(source: src);
-    if(video!=null) {
-      Navigator.of(context).push(
+    //TODO : Based on platform we have set lib - Prashant
+    if (Platform.isAndroid) {
+      final video = await ImagePicker().pickVideo(source: src);
+      if (video != null) {
+        Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ConfirmScreen(
-              videoFile: File(video.path),
-              videoPath: video.path,
-            ),
+            builder: (context) =>
+                ConfirmScreen(
+                  videoFile: File(video.path),
+                  videoPath: video.path,
+                ),
           ),
+        );
+      }
+    }
+    else {
+      List<Media>? res = await ImagesPicker.pick(
+        count: 3,
+        pickType: PickType.video,
       );
+      if (res != null && res.length < 2) {
+        var video = res[0];
+        print('prash : new : ${res.length}');
+        print('prash : new : ${res}');
+        print('prash : new : ${video.path}');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                ConfirmScreen(
+                  videoFile: File(video.path),
+                  videoPath: video.path,
+                ),
+          ),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            //TODO : We want user select single video at a time for uploading - Prashant
+            content: const Text("Please add only 1 video"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Container(
+                  color: Colors.green,
+                  padding: const EdgeInsets.all(14),
+                  child: const Text("OK"),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
     }
   }
 
@@ -37,7 +85,7 @@ class AddVideoScreen extends StatelessWidget {
                   padding: EdgeInsets.all(7.0),
                   child: Text(
                     'Gallery',
-                    style: TextStyle(fontSize:20),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
               ],
@@ -52,7 +100,7 @@ class AddVideoScreen extends StatelessWidget {
                   padding: EdgeInsets.all(7.0),
                   child: Text(
                     'Camera',
-                    style: TextStyle(fontSize:20),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
               ],
@@ -67,7 +115,7 @@ class AddVideoScreen extends StatelessWidget {
                   padding: EdgeInsets.all(7.0),
                   child: Text(
                     'Cancel',
-                    style: TextStyle(fontSize:20),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
               ],
@@ -82,21 +130,20 @@ class AddVideoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:InkWell(
+        child: InkWell(
           onTap: () => showOptionsDialog(context),
           child: Container(
             width: 190,
             height: 50,
             decoration: BoxDecoration(color: buttonColor),
             child: const Center(
-                child: Text(
-                    'Add Video',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold
-                    ),
-                ),
+              child: Text(
+                'Add Video',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
@@ -104,4 +151,3 @@ class AddVideoScreen extends StatelessWidget {
     );
   }
 }
-

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +21,11 @@ class UploadVideoController extends GetxController {
 
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref().child('videos').child(id);
-
-    UploadTask uploadTask = ref.putFile(await _compressVideo(videoPath));
+    //TODO : Remove Compression, it will video remove audio, from video - Prashant
+    //var result = await _compressVideo(videoPath);
+    print('prash path= $videoPath');
+    UploadTask uploadTask = ref.putFile(File(videoPath));
+    print('prash = ${File(videoPath).absolute}');
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
