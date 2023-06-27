@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +19,10 @@ class UploadVideoController extends GetxController {
 
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
     Reference ref = firebaseStorage.ref().child('videos').child(id);
-    //TODO : Remove Compression, it will video remove audio, from video - Prashant
-    //var result = await _compressVideo(videoPath);
+    var result = await _compressVideo(videoPath);
     print('prash path= $videoPath');
-    UploadTask uploadTask = ref.putFile(File(videoPath));
-    print('prash = ${File(videoPath).absolute}');
+    UploadTask uploadTask = ref.putFile(result);
+    print('prash compressd= ${result}');
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;
@@ -45,7 +42,6 @@ class UploadVideoController extends GetxController {
   }
 
   //upload video
-
   uploadVideo(String songName, String caption, String videoPath) async {
     try {
       Get.dialog(
@@ -65,6 +61,9 @@ class UploadVideoController extends GetxController {
       String videoUrl = await _uploadVideoToStorage("Video $len", videoPath);
       String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
 
+      print('prash videoUrl= ${videoUrl}');
+      print('prash thumbnail= ${thumbnail}');
+
       Video video = Video(
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
@@ -78,7 +77,6 @@ class UploadVideoController extends GetxController {
         profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
         thumbnail: thumbnail,
       );
-
       await firestore.collection('videos').doc('Video $len').set(
             video.toJson(),
           );

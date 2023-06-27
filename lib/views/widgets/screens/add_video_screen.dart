@@ -19,32 +19,29 @@ class AddVideoScreen extends StatelessWidget {
       if (video != null) {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) =>
-                ConfirmScreen(
-                  videoFile: File(video.path),
-                  videoPath: video.path,
-                ),
+            builder: (context) => ConfirmScreen(
+              videoFile: File(video.path),
+              videoPath: video.path,
+            ),
           ),
         );
       }
-    }
-    else {
-      List<Media>? res = await ImagesPicker.pick(
-        count: 3,
-        pickType: PickType.video,
-      );
-      if (res != null && res.length < 2) {
+    } else {
+      var imagePicker = (src == ImageSource.gallery)
+          ? await ImagesPicker.pick(
+              count: 1, pickType: PickType.video, maxTime: 60 * 5)
+          : await ImagesPicker.openCamera(
+              pickType: PickType.video, maxTime: 60 * 5);
+      List<Media>? res = imagePicker;
+      if (res != null && res.length == 1) {
         var video = res[0];
-        print('prash : new : ${res.length}');
-        print('prash : new : ${res}');
-        print('prash : new : ${video.path}');
+        print('prash : video path : ${video.path}');
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) =>
-                ConfirmScreen(
-                  videoFile: File(video.path),
-                  videoPath: video.path,
-                ),
+            builder: (context) => ConfirmScreen(
+              videoFile: File(video.path),
+              videoPath: video.path,
+            ),
           ),
         );
       } else {
