@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "349634261513-5t9gkcgg1ekohc5mpuhk1ebe45kec3c4.apps.googleusercontent.com",
+          "client_id": "349634261513-r6g56i8gpv2p1ham1kqrtdj74d71cj26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tiktok_clone_tutorial",
+            "certificate_hash": "cd22c2259c4d3b23c474262e8a4a7406777daf87"
+          }
+        },
+        {
+          "client_id": "349634261513-72i6m8pv6t2rp9a1ka2mrgrphln40dlo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

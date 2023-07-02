@@ -169,8 +169,7 @@ class AuthController extends GetxController {
       );
 
       // Once signed in, return the UserCredential
-      UserCredential cred =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential cred = await FirebaseAuth.instance.signInWithCredential(credential);
       if (cred.user != null) {
         model.User user = model.User(
             name: cred.user!.displayName ?? "",
@@ -188,14 +187,17 @@ class AuthController extends GetxController {
             .set(user.toJson());
         _setInitialScreen();
       }
-    } on FirebaseAuthException catch (e) {
+    }
+    on FirebaseAuthException catch (e) {
       Get.back();
       Get.snackbar(
         'Error In Social Login',
         e.message.toString(),
       );
+      print('prash : ${e.message}');
     } catch (e) {
       Get.back();
+      print('prash1 : ${e.toString()}');
       Get.snackbar(
         'Error In Social Login',
         e.toString(),

@@ -15,10 +15,12 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
+    print('url: ${widget.videoUrl}');
+    //var newUrl = 'https://firebasestorage.googleapis.com/v0/b/tiktok-clone-612a7.appspot.com/o/videos%2FVideo%207.mp4?alt=media&token=fd65895b-86ce-4d45-a50a-ea7fc2211809';
     videoPlayerController = CachedVideoPlayerController.network(widget.videoUrl)
       ..initialize().then((value) {
         videoPlayerController.play();
-        videoPlayerController.setVolume(1);
+        videoPlayerController.setVolume(1.0);
         videoPlayerController.setLooping(true);
       });
   }

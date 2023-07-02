@@ -23,6 +23,7 @@ class ProfileController extends GetxController {
         .where('uid', isEqualTo: _uid.value)
         .get();
 
+    print('prash my video = ${myVideos.docs.length}');
     for (int i = 0; i < myVideos.docs.length; i++) {
       thumbnails.add((myVideos.docs[i].data() as dynamic)['thumbnail']);
     }

@@ -3,9 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>349634261513-uprmp12uur9ih2c7cjstshid7aqibbtg.apps.googleusercontent.com</string>
+	<string>349634261513-9b6a1ugq6qs4m5necoojr360bveo4odo.apps.googleusercontent.com</string>
+	<key>SERVER_CLIENT_ID</key>
+    <string>349634261513-r6g56i8gpv2p1ham1kqrtdj74d71cj26.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.349634261513-uprmp12uur9ih2c7cjstshid7aqibbtg</string>
+	<string>com.googleusercontent.apps.349634261513-9b6a1ugq6qs4m5necoojr360bveo4odo</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>349634261513-r6g56i8gpv2p1ham1kqrtdj74d71cj26.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAJyh84z7vvvKbAC3HtlrnGtM0A7k12qBs</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.stephherbert.selfthought</string>
+	<string>com.mhsinnovations.selfthought</string>
 	<key>PROJECT_ID</key>
 	<string>tiktok-clone-612a7</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +33,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:349634261513:ios:c98b840319968ef1103ed8</string>
+	<string>1:349634261513:ios:3e4777e06bdfa0c8103ed8</string>
 </dict>
 </plist>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone_tutorial/app_pref.dart';
+import '../../../constants.dart';
 import '../../../controllers/video_controller.dart';
 import '../circle_animation.dart';
 import '../video_player_item.dart';
@@ -97,6 +98,7 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final uid=  authController.user.uid;
 
     return Scaffold(
       body: Obx(() {
@@ -106,6 +108,8 @@ class _VideoScreenState extends State<VideoScreen> {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             final data = videoController.videoList[index];
+            print('prash my uid : $uid');
+            print('prash video data: ${data.username} ${data.uid}');
             return Stack(
               children: [
                 VideoPlayerItem(
@@ -177,7 +181,7 @@ class _VideoScreenState extends State<VideoScreen> {
                                 buildProfile(data.profilePhoto),
                                 Column(
                                   children: [
-                                    if (getPrefValue("Role") == "0")
+                                    if (getPrefValue("Role") == "0" && uid==data.uid)
                                       Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
