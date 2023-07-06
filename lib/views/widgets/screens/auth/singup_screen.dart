@@ -43,7 +43,8 @@ class SignupScreen extends StatelessWidget {
             const SizedBox(
               height: 25.0,
             ),
-            Stack(
+            // REMOVE PROFILE PICTURE FROM REGISTER SCREEN
+            /*Stack(
               children: [
                 Obx(() => authController.pickedImage.value.path != ""
                     ? CircleAvatar(
@@ -70,7 +71,7 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            ),*/
             const SizedBox(
               height: 15.0,
             ),

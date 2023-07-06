@@ -37,19 +37,21 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.home, size: 30),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
+          // REMOVE SEARCH BUTTON FROM HOME MENU BAR
+         /* const BottomNavigationBarItem(
             icon: Icon(Icons.search, size: 30),
             label: 'Search',
-          ),
+          ),*/
           if (getPrefValue("Role") == "0") // 0->1 for checking upload video feature By Bright
             const BottomNavigationBarItem(
               icon: CustomIcon(),
               label: '',
             ),
-          const BottomNavigationBarItem(
+          //REMOVE FOR RELEASE
+          /*const BottomNavigationBarItem(
             icon: Icon(Icons.message, size: 30),
             label: 'Messages',
-          ),
+          ),*/
           const BottomNavigationBarItem(
             icon: Icon(Icons.person, size: 30),
             label: 'Profile',
@@ -59,16 +61,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: getPrefValue("Role") == "0" // 0->1 for checking upload video feature By Bright
           ? [
               const VideoScreen(),
-              SearchScreen(),
+              //SearchScreen(), // REMOVE SEARCH SCREEN
               const AddVideoScreen(),
-              const Center(child: Text('Messages Screen')),
+             // const Center(child: Text('Messages Screen')), REMOVE FOR RELEASE
               ProfileScreen(uid: authController.user.uid),
             ][pageIdx]
           : [
               const VideoScreen(),
-              SearchScreen(),
+              //SearchScreen(),  //REMOVE SEARCH SCREEN
               // const AddVideoScreen(),
-              const Center(child: Text('Messages Screen')),
+              //const Center(child: Text('Messages Screen')), REMOVE FOR RELEASE
               ProfileScreen(uid: authController.user.uid),
             ][pageIdx],
     );

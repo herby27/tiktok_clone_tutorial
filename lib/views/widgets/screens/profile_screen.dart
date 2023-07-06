@@ -37,7 +37,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
-              leading: const Icon(Icons.person_add_alt_1_outlined),
+
+              // REMOVE THE PERSON ADD BUTTON AND THREE DOTS BUTTONS
+              /*leading: const Icon(Icons.person_add_alt_1_outlined),
               actions: [
                 // Icon(Icons.more_horiz),
                 PopupMenuButton(
@@ -48,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //   }),
                   ],
                 )
-              ],
+              ],*/
               title: Text(
                 controller.user['name'],
                 style: const TextStyle(
@@ -63,7 +65,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Column(
                       children: [
-                        Row(
+                        //REMOVE CIRCLE PROFILE PICTURE ON PROFILE SCREEN
+                        /*Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ClipOval(
@@ -86,11 +89,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ],
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
+                       // REMOVE FOLLOWING, FOLLOWERS,LIKES  ETC FROM PROFILE SCREEN
+                       /* Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Column(
@@ -167,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ],
                             ),
                           ],
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 15,
                         ),

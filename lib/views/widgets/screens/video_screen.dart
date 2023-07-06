@@ -178,7 +178,7 @@ class _VideoScreenState extends State<VideoScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                buildProfile(data.profilePhoto),
+                                //buildProfile(data.profilePhoto),
                                 Column(
                                   children: [
                                     if (getPrefValue("Role") == "0" && uid==data.uid)
@@ -207,7 +207,9 @@ class _VideoScreenState extends State<VideoScreen> {
                                           const SizedBox(height: 7),
                                         ],
                                       ),
-                                    InkWell(
+
+                                    // REMOVE LIKE HEART FROM VIDEO SCREEN
+                                    /*InkWell(
                                       onTap: () =>
                                           videoController.likeVideo(data.id),
                                       child: const Icon(Icons.favorite,
@@ -220,10 +222,11 @@ class _VideoScreenState extends State<VideoScreen> {
                                         fontSize: 20,
                                         color: Colors.white,
                                       ),
-                                    ),
+                                    ),*/
                                   ],
                                 ),
-                                Column(
+                                // REMOVED FOR RELEASE
+                                /*Column(
                                   children: [
                                     InkWell(
                                       onTap: () {},
@@ -239,8 +242,9 @@ class _VideoScreenState extends State<VideoScreen> {
                                       ),
                                     ),
                                   ],
-                                ),
-                                Column(
+                                ),*/
+                                // REMOVED FOR RELEASE
+                                /*Column(
                                   children: [
                                     InkWell(
                                       onTap: () {},
@@ -256,10 +260,11 @@ class _VideoScreenState extends State<VideoScreen> {
                                       ),
                                     ),
                                   ],
-                                ),
-                                CircleAnimation(
+                                ),*/
+                                // REMOVED FOR RELEASE
+                                /*CircleAnimation(
                                   child: buildMusicAlbum(data.profilePhoto),
-                                ),
+                                ),*/
                               ],
                             ),
                           ),
