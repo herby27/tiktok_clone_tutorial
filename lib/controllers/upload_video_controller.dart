@@ -57,9 +57,27 @@ class UploadVideoController extends GetxController {
           await firestore.collection('users').doc(uid).get();
       // get id
       var allDocs = await firestore.collection('videos').get();
-      int nextIdNum = allDocs.docs.length +1;
-      String videoUrl = await _uploadVideoToStorage("Video $nextIdNum", videoPath);
-      String thumbnail = await _uploadImageToStorage("Video $nextIdNum", videoPath);
+      //var snapshot = await firestore.collection('videos').get();
+      var myMap=allDocs.docs.asMap();
+      // THIS CODE DOES NOT WORK BECAUSE THERE ARE DELETED IDS FROM THE DATABASE: int nextIdNum = allDocs.docs.length +1;
+
+
+      // INSTEAD WILL CONVERT THE ID FROM STRING VAL AND LOOP TO FIND THE MAX
+      // AT SOME POINT CHANGE ID IN THE DATABASE  TO BE INT NOT STRING
+      // OR HAVE FIREBASE USE A SEQUENCE
+        var MaxId =0;
+        myMap.forEach((i, value) {
+          print('index=$i, value=$value.data()');
+          var id= int.parse(value.data()["id"]);
+          if (id > MaxId) {
+            MaxId =id;
+          }
+        });
+
+
+      var nextIdNum=MaxId +1;
+      String videoUrl = await _uploadVideoToStorage("$nextIdNum", videoPath);
+      String thumbnail = await _uploadImageToStorage("$nextIdNum", videoPath);
 
       print('prash videoUrl= ${videoUrl}');
       print('prash thumbnail= ${thumbnail}');
@@ -67,7 +85,7 @@ class UploadVideoController extends GetxController {
       Video video = Video(
         username: (userDoc.data()! as Map<String, dynamic>)['name'],
         uid: uid,
-        id: "Video $nextIdNum",
+        id: "$nextIdNum",
         likes: [],
         commentCount: 0,
         shareCount: 0,
@@ -77,7 +95,7 @@ class UploadVideoController extends GetxController {
         profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
         thumbnail: thumbnail,
       );
-      await firestore.collection('videos').doc('Video $nextIdNum').set(
+      await firestore.collection('videos').doc('$nextIdNum').set(
             video.toJson(),
           );
       Get.back();
