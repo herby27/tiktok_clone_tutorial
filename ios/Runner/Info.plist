@@ -53,9 +53,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Our app uses the camera to capture videos for sharing on our app’s video stream user’s profiles.</string>
+	<string>Our app uses the camera to capture videos for sharing on our app’s video stream and user’s profiles.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Our app uses the microphone to capture videos for sharing on our app’s video stream user’s profiles.</string>
+	<string>Our app uses the microphone to capture videos for sharing on our app’s video stream and user’s profiles.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Our app uses the photo library to access videos for sharing on our app’s video stream and user’s profiles.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
